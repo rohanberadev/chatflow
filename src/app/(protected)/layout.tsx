@@ -3,7 +3,7 @@ import { AppHeader } from "~/components/app-header";
 import { AppSidebar } from "~/components/app-sidebar";
 import { SidebarProvider } from "~/components/ui/sidebar";
 
-export default function ProtectedLayout({
+export default async function ProtectedLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

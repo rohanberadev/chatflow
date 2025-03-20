@@ -1,5 +1,6 @@
 "use client";
 
+import { useUser } from "@clerk/nextjs";
 import {
   ChartNoAxesCombinedIcon,
   HomeIcon,
@@ -48,7 +49,7 @@ const items = [
 
 export function AppSidebar() {
   const pathname = usePathname();
-  console.log(pathname);
+  const { user } = useUser();
 
   return (
     <Sidebar collapsible="icon" className="border-border">
@@ -75,7 +76,13 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter className="bg-gray-200 dark:bg-background">
-        <NavUser user={{ name: "Rohan Bera", email: "rohan@example.com" }} />
+        <NavUser
+          user={{
+            fullname: user?.fullName ?? user?.username ?? undefined,
+            email: user?.primaryEmailAddress?.emailAddress,
+            imageUrl: user?.imageUrl,
+          }}
+        />
       </SidebarFooter>
     </Sidebar>
   );

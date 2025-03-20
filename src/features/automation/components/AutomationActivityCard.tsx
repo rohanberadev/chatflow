@@ -7,14 +7,13 @@ import {
   CardTitle,
 } from "~/components/ui/card";
 
-export function ActivityCard() {
+export function AutomationActivityCard() {
   return (
     <Card className="w-full min-h-[350px] h-full transition-all duration-150 bg-card border-muted">
       <CardHeader>
         <CardTitle className="text-xl font-black">Automated Activity</CardTitle>
         <CardDescription>
-          We{"'"}re currently gathering your activity. Please check back
-          tomorrow!
+          View your workflows, triggers, and executions for the month!
         </CardDescription>
       </CardHeader>
       <CardContent className="flex-1"></CardContent>
@@ -27,19 +26,19 @@ export function ActivityCard() {
           </div>
 
           <div className="flex flex-col w-full justify-center">
-            <p className="text-sm">Comments</p>
+            <p className="text-sm">Story replies</p>
             <span className="text-4xl text-primary font-black">0</span>
             <p className="text-sm">Out of 0</p>
           </div>
 
           <div className="flex flex-col w-full justify-center">
-            <p className="text-sm">Comments</p>
+            <p className="text-sm">DMs</p>
             <span className="text-4xl text-primary font-black">0</span>
             <p className="text-sm">Out of 0</p>
           </div>
 
           <div className="flex flex-col w-full justify-center">
-            <p className="text-sm">Comments</p>
+            <p className="text-sm">Story mentons</p>
             <span className="text-4xl text-primary font-black">0</span>
             <p className="text-sm">Out of 0</p>
           </div>

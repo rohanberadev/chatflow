@@ -2,6 +2,7 @@
 
 import { useUser } from "@clerk/nextjs";
 import {
+  CableIcon,
   ChartNoAxesCombinedIcon,
   HomeIcon,
   SettingsIcon,
@@ -31,9 +32,14 @@ const items = [
     icon: HomeIcon,
   },
   {
-    title: "Automation",
-    url: "/automation",
+    title: "Automations",
+    url: "/automations",
     icon: WorkflowIcon,
+  },
+  {
+    title: "Integrations",
+    url: "/integrations",
+    icon: CableIcon,
   },
   {
     title: "Analytics",

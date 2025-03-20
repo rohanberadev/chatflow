@@ -24,8 +24,8 @@ export default async function DashboardPage() {
         />
         <QuickAutomationAccessCard
           href="#"
-          title="Auto-DM from mentions"
-          description="Send a message when people mention you on a post, story or reel"
+          title="Auto-DM from Direct Messages"
+          description="Send a message when people sends you a direct message"
         />
       </div>
 

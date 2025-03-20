@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 const isProtectedRoute = createRouteMatcher([
   "/account(.*)",
   "/analytics(.*)",
-  "/automation(.*)",
+  "/automations(.*)",
   "/dashboard(.*)",
   "/settings(.*)",
   "/notifications(.*)",
@@ -19,6 +19,11 @@ export default clerkMiddleware(async (auth, request) => {
 
   if (isProtectedRoute(request) && !userId) {
     await auth.protect();
+    if (request.nextUrl.pathname === "/automations") {
+      return NextResponse.redirect(
+        new URL("/automations?page=1", request.nextUrl)
+      );
+    }
   }
 
   if ((isPublicRoute(request) || isAuthRoute(request)) && userId) {

@@ -2,11 +2,7 @@ import { WebhookEvent } from "@clerk/nextjs/server";
 import { headers } from "next/headers";
 import { Webhook } from "svix";
 import { env } from "~/data/env/server";
-import {
-  deleteUser,
-  insertUser,
-  updateUser,
-} from "~/features/user/server/db/query";
+import { deleteUser, insertUser, updateUser } from "~/features/user/db/users";
 import { syncClerkUserMetadata } from "~/services/clerk";
 
 export async function POST(req: Request) {
@@ -60,15 +56,16 @@ export async function POST(req: Request) {
       const email = event.data.email_addresses.find(
         (email) => email.id === event.data.primary_email_address_id
       )?.email_address;
-      const name = `${event.data.first_name} ${event.data.last_name}`.trim();
+      const fullname =
+        `${event.data.first_name} ${event.data.last_name}`.trim();
 
       if (!email) return new Response("No email", { status: 400 });
-      if (!name) return new Response("No name", { status: 400 });
+      if (!fullname) return new Response("No name", { status: 400 });
 
       if (event.type === "user.created") {
         const user = await insertUser({
           clerkUserId: event.data.id,
-          name,
+          fullname,
           email,
         });
 
@@ -78,7 +75,7 @@ export async function POST(req: Request) {
           { clerkUserId: event.data.id },
           {
             email,
-            name,
+            fullname,
             imageUrl: event.data.image_url,
             role: event.data.public_metadata.role,
           }

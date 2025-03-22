@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm";
-import { pgEnum, pgTable, text, timestamp } from "drizzle-orm/pg-core";
+import { pgEnum, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
 import { createdAt, id, updatedAt } from "../schemaHelper";
 import { UserTable } from "./user";
 
@@ -10,7 +10,7 @@ export const integrationEnum = pgEnum("integration", integration);
 export const IntegrationTable = pgTable("integrations", {
   id,
   name: integrationEnum().notNull().default("instagram"),
-  userId: text("user_id").references(() => UserTable.id),
+  userId: uuid("user_id").references(() => UserTable.id),
   token: text().notNull(),
   platformUserId: text("platform_user_id").notNull(),
   expiresAt: timestamp("expires_at").notNull(),

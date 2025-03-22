@@ -1,4 +1,3 @@
-import Link from "next/link";
 import {
   Card,
   CardDescription,
@@ -6,7 +5,6 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
-import { AutomationPagePagination } from "./AutomationPagePagination";
 
 export function AutomationCard() {
   return (
@@ -29,23 +27,10 @@ export function AutomationCard() {
         <div className="py-2 px-8 rounded-xl flex items-center justify-center border-[2px]">
           Standard
         </div>
+        {/* <div className="py-2 px-8 rounded-xl flex items-center justify-center bg-gradient-to-r from-blue-500 to-primary">
+          Smart AI
+        </div> */}
       </CardFooter>
     </Card>
-  );
-}
-
-export function AutomationList() {
-  return (
-    <div className="w-full h-full flex flex-col gap-y-8">
-      {Array.from({ length: 5 }).map((_, index) => (
-        <Link href={`/automations/${index}`} key={index}>
-          <AutomationCard />
-        </Link>
-      ))}
-
-      <div className="w-full flex justify-end">
-        <AutomationPagePagination />
-      </div>
-    </div>
   );
 }

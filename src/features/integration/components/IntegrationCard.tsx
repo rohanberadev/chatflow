@@ -5,20 +5,26 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
+import { Integration } from "~/drizzle/schema";
+import { getOAuthIntegrationUrl } from "../actions/integrations";
 
-export function IntegrationCard({
+export async function IntegrationCard({
   integrationName,
   description,
   icon,
-  href,
+  integrationStrategy,
 }: {
   integrationName: string;
   description: string;
   icon: React.ReactNode;
-  href: string;
+  integrationStrategy: Integration;
 }) {
+  const url = await getOAuthIntegrationUrl({ strategy: integrationStrategy });
+
+  if (!url) return null;
+
   return (
-    <Link href={href} className="w-full">
+    <Link href={url} className="w-full">
       <Card className="w-full h-full hover:border-primary transition-all duration-150">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">

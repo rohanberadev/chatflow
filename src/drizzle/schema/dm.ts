@@ -1,11 +1,11 @@
 import { relations } from "drizzle-orm";
-import { pgTable, text } from "drizzle-orm/pg-core";
+import { pgTable, text, uuid } from "drizzle-orm/pg-core";
 import { createdAt, id, updatedAt } from "../schemaHelper";
 import { AutomationTable } from "./automation";
 
 export const DmsTable = pgTable("dms_table", {
   id,
-  automationId: text("automation_id").references(() => AutomationTable.id),
+  automationId: uuid("automation_id").references(() => AutomationTable.id),
   senderId: text("sender_id").notNull(),
   recipientId: text("recipient_id").notNull(),
   content: text().notNull(),

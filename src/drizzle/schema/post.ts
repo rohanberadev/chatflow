@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm";
-import { pgEnum, pgTable, text } from "drizzle-orm/pg-core";
+import { pgEnum, pgTable, text, uuid } from "drizzle-orm/pg-core";
 import { createdAt, id, updatedAt } from "../schemaHelper";
 import { AutomationTable } from "./automation";
 
@@ -13,7 +13,7 @@ export const PostTable = pgTable("posts", {
   caption: text(),
   mediaUrl: text(),
   mediaType: mediaTypeEnum(),
-  automationId: text("automation_id").references(() => AutomationTable.id),
+  automationId: uuid("automation_id").references(() => AutomationTable.id),
   createdAt,
   updatedAt,
 });

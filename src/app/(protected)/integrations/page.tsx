@@ -8,7 +8,7 @@ export default function IntegrationsPage() {
         integrationName="Instagram"
         description="Connect your Instagram account to automate social media interactions and content management"
         icon={<InstagramIcon />}
-        href="#"
+        integrationStrategy="instagram"
       />
     </div>
   );

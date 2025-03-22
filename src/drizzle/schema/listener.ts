@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm";
-import { bigint, pgEnum, pgTable, text } from "drizzle-orm/pg-core";
+import { bigint, pgEnum, pgTable, text, uuid } from "drizzle-orm/pg-core";
 import { createdAt, id, updatedAt } from "../schemaHelper";
 import { AutomationTable } from "./automation";
 
@@ -16,7 +16,7 @@ export const ListenerTable = pgTable("listeners", {
   commentCount: bigint("comment_count", { mode: "number" })
     .notNull()
     .default(0),
-  automationId: text("automation_id").references(() => AutomationTable.id),
+  automationId: uuid("automation_id").references(() => AutomationTable.id),
   createdAt,
   updatedAt,
 });

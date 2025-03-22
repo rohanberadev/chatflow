@@ -2,6 +2,7 @@
 
 import { MenuIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
+import { items } from "./app-sidebar";
 import { ModeToggle } from "./mode-toggle";
 import { Button } from "./ui/button";
 import { useSidebar } from "./ui/sidebar";
@@ -17,8 +18,11 @@ export function AppHeader() {
           <MenuIcon />
         </Button>
         <h1 className="text-2xl text-foreground font-bold">
-          {pathname.replace("/", "").slice(0, 1).toUpperCase()}
-          {pathname.replace("/", "").slice(1, pathname.length).toLowerCase()}
+          {items.map((item) => {
+            if (pathname.includes(item.url)) {
+              return item.title;
+            }
+          })}
         </h1>
       </div>
       <ModeToggle />

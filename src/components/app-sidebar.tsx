@@ -4,7 +4,7 @@ import { useUser } from "@clerk/nextjs";
 import {
   CableIcon,
   ChartNoAxesCombinedIcon,
-  HomeIcon,
+  LayoutDashboardIcon,
   SettingsIcon,
   WorkflowIcon,
 } from "lucide-react";
@@ -25,11 +25,11 @@ import {
 import { NavUser } from "./nav-user";
 
 // menu items
-const items = [
+export const items = [
   {
-    title: "Home",
+    title: "Dashboard",
     url: "/dashboard",
-    icon: HomeIcon,
+    icon: LayoutDashboardIcon,
   },
   {
     title: "Automations",
@@ -69,7 +69,10 @@ export function AppSidebar() {
             <SidebarMenu className="flex flex-col gap-y-2">
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild isActive={pathname === item.url}>
+                  <SidebarMenuButton
+                    asChild
+                    isActive={pathname.includes(item.url)}
+                  >
                     <Link href={item.url}>
                       <item.icon />
                       <span>{item.title}</span>

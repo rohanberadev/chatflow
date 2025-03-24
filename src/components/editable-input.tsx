@@ -1,5 +1,6 @@
 "use client";
 
+import { FormEventHandler } from "react";
 import { Input } from "~/components/ui/input";
 import { cn } from "~/lib/utils";
 
@@ -10,8 +11,9 @@ export function EditableInput({
   setInputValue,
   isEditing,
   setIsEditing,
+  onSubmit,
 }: {
-  autoSaveFn?: () => void;
+  onSubmit?: FormEventHandler<HTMLFormElement> | undefined;
   className?: string;
   placeholder?: string;
   inputValue: string;
@@ -21,14 +23,16 @@ export function EditableInput({
 }) {
   if (isEditing) {
     return (
-      <Input
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
-        onBlur={() => setIsEditing(false)}
-        autoFocus
-        className="w-full"
-        placeholder={placeholder}
-      />
+      <form onSubmit={onSubmit} className="w-full">
+        <Input
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          onBlur={() => setIsEditing(false)}
+          autoFocus
+          className="w-full"
+          placeholder={placeholder}
+        />
+      </form>
     );
   }
 

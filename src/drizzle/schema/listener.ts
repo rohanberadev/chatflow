@@ -16,7 +16,9 @@ export const ListenerTable = pgTable("listeners", {
   commentCount: bigint("comment_count", { mode: "number" })
     .notNull()
     .default(0),
-  automationId: uuid("automation_id").references(() => AutomationTable.id),
+  automationId: uuid("automation_id")
+    .notNull()
+    .references(() => AutomationTable.id),
   createdAt,
   updatedAt,
 });

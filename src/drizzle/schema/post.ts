@@ -13,7 +13,9 @@ export const PostTable = pgTable("posts", {
   caption: text(),
   mediaUrl: text(),
   mediaType: mediaTypeEnum(),
-  automationId: uuid("automation_id").references(() => AutomationTable.id),
+  automationId: uuid("automation_id")
+    .notNull()
+    .references(() => AutomationTable.id),
   createdAt,
   updatedAt,
 });

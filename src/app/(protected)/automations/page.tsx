@@ -2,6 +2,7 @@ import { currentUser } from "@clerk/nextjs/server";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
+import { LoadingSpinner } from "~/components/loader-spinner";
 import { AutomationCard } from "~/features/automation/components/AutomationCard";
 import { AutomationFilter } from "~/features/automation/components/AutomationFilter";
 import { AutomationPagePagination } from "~/features/automation/components/AutomationPagePagination";
@@ -21,7 +22,7 @@ export default async function AutomationsPage({
   const filterValue = (filter as AutomationFilterType) ?? "all";
 
   return (
-    <div>
+    <div className="w-full h-full">
       <div className="flex items-center justify-between w-full max-lg:flex-col gap-y-4">
         <div className="flex items-center gap-x-4 max-lg:w-full">
           <SearchAutomation className="w-[250px] max-lg:w-full" />
@@ -32,12 +33,16 @@ export default async function AutomationsPage({
       </div>
 
       <div className="mt-16">
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<LoadingSpinner />}>
           <AutomationList
             pagination={{ page: pageNumber, pageSize: 5 }}
             filter={filterValue}
           />
         </Suspense>
+
+        <div className="w-full flex justify-end mt-8">
+          <AutomationPagePagination currentPage={pageNumber} />
+        </div>
       </div>
     </div>
   );
@@ -70,13 +75,9 @@ async function AutomationList({
     <div className="w-full h-full flex flex-col gap-y-8">
       {automations.map((automation) => (
         <Link href={`/automations/${automation.id}/edit`} key={automation.id}>
-          <AutomationCard />
+          <AutomationCard automation={automation} />
         </Link>
       ))}
-
-      <div className="w-full flex justify-end">
-        <AutomationPagePagination />
-      </div>
     </div>
   );
 }

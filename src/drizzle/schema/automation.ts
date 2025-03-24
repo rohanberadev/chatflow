@@ -10,7 +10,9 @@ import { UserTable } from "./user";
 export const AutomationTable = pgTable("automations", {
   id,
   name: text().notNull(),
-  userId: uuid("user_id").references(() => UserTable.id),
+  userId: uuid("user_id")
+    .notNull()
+    .references(() => UserTable.id),
   active: boolean().notNull().default(false),
   deletedAt: timestamp("deleted_at", { withTimezone: true }),
   createdAt,

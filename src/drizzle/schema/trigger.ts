@@ -10,7 +10,9 @@ export const triggerTypeEnum = pgEnum("trigger_type", triggerType);
 export const TriggerTable = pgTable("triggers", {
   id,
   type: triggerTypeEnum().notNull(),
-  automationId: uuid("automation_id").references(() => AutomationTable.id),
+  automationId: uuid("automation_id")
+    .notNull()
+    .references(() => AutomationTable.id),
   createdAt,
   updatedAt,
 });

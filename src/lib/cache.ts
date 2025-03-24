@@ -18,8 +18,8 @@ export function getUserTag(userId: string, tag: keyof typeof CACHE_TAGS) {
   return `user:${userId}-${CACHE_TAGS[tag]}` as const;
 }
 
-export function getIdTag(id: string) {
-  return `id:${id}` as const;
+export function getIdTag(id: string, tag: keyof typeof CACHE_TAGS) {
+  return `id:${id}-${CACHE_TAGS[tag]}` as const;
 }
 
 export function clearFullCache() {
@@ -49,6 +49,6 @@ export function revalidateDbCache({
   }
 
   if (id) {
-    revalidateTag(getIdTag(id));
+    revalidateTag(getIdTag(id, tag));
   }
 }

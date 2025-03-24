@@ -10,7 +10,9 @@ export const integrationEnum = pgEnum("integration", integration);
 export const IntegrationTable = pgTable("integrations", {
   id,
   name: integrationEnum().notNull().default("instagram"),
-  userId: uuid("user_id").references(() => UserTable.id),
+  userId: uuid("user_id")
+    .notNull()
+    .references(() => UserTable.id),
   token: text().notNull(),
   platformUserId: text("platform_user_id").notNull(),
   expiresAt: timestamp("expires_at").notNull(),

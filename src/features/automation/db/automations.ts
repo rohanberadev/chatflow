@@ -1,10 +1,10 @@
 import { and, desc, eq, isNull } from "drizzle-orm";
-import "server-only";
 import { db } from "~/drizzle/db";
 import { AutomationTable } from "~/drizzle/schema";
 import {
   CACHE_TAGS,
   dbCache,
+  getIdTag,
   getUserTag,
   revalidateDbCache,
 } from "~/lib/cache";
@@ -47,6 +47,40 @@ export async function insertAutomation({
   return newAutomation;
 }
 
+export async function updateAutomation(
+  { id, userId }: { id: string; userId: string },
+  data: Partial<typeof AutomationTable.$inferSelect>
+) {
+  const { rowCount } = await db
+    .update(AutomationTable)
+    .set(data)
+    .where(and(eq(AutomationTable.id, id), eq(AutomationTable.userId, userId)));
+
+  if (rowCount > 0) {
+    revalidateDbCache({
+      tag: CACHE_TAGS.automations,
+      userId,
+      id,
+    });
+  }
+
+  return rowCount > 0;
+}
+
+export async function getAutomation({
+  id,
+  userId,
+}: {
+  id: string;
+  userId: string;
+}) {
+  const cacheFn = dbCache(getAutomationInternal, {
+    tags: [getIdTag(id, CACHE_TAGS.automations)],
+  });
+
+  return cacheFn({ userId, id });
+}
+
 function getAutomationsInternal(
   userId: string,
   {
@@ -72,5 +106,18 @@ function getAutomationsInternal(
     orderBy: [desc(AutomationTable.createdAt)],
     limit: pagination?.pageSize,
     offset: ((pagination?.page ?? 1) - 1) * (pagination?.pageSize ?? 5),
+  });
+}
+
+function getAutomationInternal({ userId, id }: { userId: string; id: string }) {
+  return db.query.AutomationTable.findFirst({
+    columns: {
+      id: true,
+      name: true,
+      active: true,
+      createdAt: true,
+      updatedAt: true,
+    },
+    where: and(eq(AutomationTable.id, id), eq(AutomationTable.userId, userId)),
   });
 }

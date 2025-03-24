@@ -5,15 +5,23 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
+import { AutomationTable } from "~/drizzle/schema";
 
-export function AutomationCard() {
+export function AutomationCard({
+  automation,
+}: {
+  automation: Partial<typeof AutomationTable.$inferSelect>;
+}) {
   return (
     <Card className="w-full h-full bg-card hover:border-primary/40 transition-all duration-150">
       <CardHeader>
         <div className="flex items-center justify-between">
-          <CardTitle className="text-4xl font-bold">Test Automation</CardTitle>
+          <CardTitle className="text-4xl font-bold">
+            {automation.name}
+          </CardTitle>
           <span className="text-xs text-muted-foreground">
-            {new Date().toDateString()}
+            {automation.createdAt &&
+              new Date(automation.createdAt).toDateString()}
           </span>
         </div>
         <CardDescription className="text-muted-foreground text-sm">

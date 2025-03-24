@@ -2,7 +2,7 @@ import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { EditAutomationNameForm } from "~/features/automation/components/form/EditAutomationNameForm";
 import { getAutomation } from "~/features/automation/db/automations";
-import { AddTriggerForm } from "~/features/trigger/components/AddTriggerForm";
+import { AddTriggerForm } from "~/features/trigger/components/form/AddTriggerForm";
 
 export default async function EditAutomationPage({
   params,

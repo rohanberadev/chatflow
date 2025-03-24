@@ -1,3 +1,5 @@
+"use client";
+
 import { CirclePlusIcon, PlusIcon, XIcon } from "lucide-react";
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
@@ -8,8 +10,9 @@ import {
   PopoverTrigger,
 } from "~/components/ui/popover";
 import { TriggerCard } from "~/features/automation/components/TriggerCard";
+import { createTrigger } from "../../actions/triggers";
 
-export function AddTriggerForm() {
+export function AddTriggerForm({ id }: { id: string }) {
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -36,7 +39,14 @@ export function AddTriggerForm() {
             <PlusIcon className="size-4" />
           </Button>
         </div>
-        <Button className="w-full">Save</Button>
+        <Button
+          className="w-full"
+          onClick={async () =>
+            await createTrigger({ automationId: id, type: "dm", keyword: "" })
+          }
+        >
+          Save
+        </Button>
       </PopoverContent>
     </Popover>
   );
